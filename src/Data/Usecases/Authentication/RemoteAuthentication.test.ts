@@ -2,6 +2,7 @@ import HttpPostClientSpy from '@/Data/Mocks/HttpPostClientSpy';
 import { HttpStatusCode } from '@/Data/Protocols/Http/HttpResponse';
 import RemoteAuthentication from '@/Data/Usecases/Authentication/RemoteAuthentication';
 import { InvalidCredentialsError } from '@/Domain/Errors/InvalidCredentialsError';
+import { UnexpectedError } from '@/Domain/Errors/UnexpectedError';
 import { mockAuthentication } from '@/Domain/Mocks/mockAuthentication';
 import faker from 'faker';
 
@@ -20,26 +21,53 @@ function SUTFactory(url: string = faker.internet.url()): SUTTypes {
 }
 
 describe('RemoteAuthentication', () => {
-  it('Calls HttpPostClient with correct URL', async () => {
+  it('calls HttpPostClient with correct URL', async () => {
     const url = faker.internet.url();
     const { SUT, httpPostClientSpy } = SUTFactory(url);
     await SUT.auth(mockAuthentication());
     expect(httpPostClientSpy.url).toBe(url);
   });
 
-  it('Calls HttpPostClient with correct body', async () => {
+  it('calls HttpPostClient with correct body', async () => {
     const { SUT, httpPostClientSpy } = SUTFactory();
     const authParams = mockAuthentication();
     await SUT.auth(authParams);
     expect(httpPostClientSpy.body).toEqual(authParams);
   });
 
-  it('Throws InvalidCredentialsError when HttpPostClient returns 401 statusCode', async () => {
+  it('throws InvalidCredentialsError when HttpPostClient returns 401 statusCode', async () => {
     const { SUT, httpPostClientSpy } = SUTFactory();
     httpPostClientSpy.data = {
       statusCode: HttpStatusCode.unauthorized,
     };
     const promise = SUT.auth(mockAuthentication());
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
+  });
+
+  it('throws UnexpectedError when HttpPostClient returns 400 statusCode', async () => {
+    const { SUT, httpPostClientSpy } = SUTFactory();
+    httpPostClientSpy.data = {
+      statusCode: HttpStatusCode.badRequest,
+    };
+    const promise = SUT.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  it('throws UnexpectedError when HttpPostClient returns 404 statusCode', async () => {
+    const { SUT, httpPostClientSpy } = SUTFactory();
+    httpPostClientSpy.data = {
+      statusCode: HttpStatusCode.notFound,
+    };
+    const promise = SUT.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  it('throws UnexpectedError when HttpPostClient returns 500 statusCode', async () => {
+    const { SUT, httpPostClientSpy } = SUTFactory();
+    httpPostClientSpy.data = {
+      statusCode: HttpStatusCode.serverError,
+    };
+    const promise = SUT.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
