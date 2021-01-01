@@ -1,4 +1,4 @@
-import HttpPostClientSpy from '@/Data/Mocks/HttpClientSpy';
+import HttpPostClientSpy from '@/Data/Mocks/HttpPostClientSpy';
 import RemoteAuthentication from '@/Data/Usecases/Authentication/RemoteAuthentication';
 import faker from 'faker';
 
