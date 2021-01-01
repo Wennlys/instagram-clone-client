@@ -3,6 +3,7 @@ import { HttpStatusCode } from '@/Data/Protocols/Http/HttpResponse';
 import RemoteAuthentication from '@/Data/Usecases/Authentication/RemoteAuthentication';
 import { InvalidCredentialsError } from '@/Domain/Errors/InvalidCredentialsError';
 import { UnexpectedError } from '@/Domain/Errors/UnexpectedError';
+import { mockAccountModel } from '@/Domain/Mocks/mockAccountModel';
 import { mockAuthentication } from '@/Domain/Mocks/mockAuthentication';
 import { AccountModel } from '@/Domain/Models/AccountModel';
 import { AuthenticationParams } from '@/Domain/Usecases/Authentication';
@@ -71,5 +72,16 @@ describe('RemoteAuthentication', () => {
     };
     const promise = SUT.auth(mockAuthentication());
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  it('return AccountModel when HttpPostClient returns 200 statusCode', async () => {
+    const { SUT, httpPostClientSpy } = SUTFactory();
+    const response = mockAccountModel();
+    httpPostClientSpy.data = {
+      statusCode: HttpStatusCode.ok,
+      body: response,
+    };
+    const account = await SUT.auth(mockAuthentication());
+    expect(account).toEqual(response);
   });
 });
