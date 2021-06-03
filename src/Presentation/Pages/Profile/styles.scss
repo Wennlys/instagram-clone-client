@@ -1,20 +1,25 @@
-/* Profile Section */
-/* Gallery Section */
-/* Loader */
-/* Media Query */
-/* Spinner Animation */
+* {
+	margin: 0;
+	padding: 0;
+  box-sizing: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	&::before {
+		margin: 0;
+		padding: 0;
+		box-sizing: inherit;
+	}
+	&::after {
+		margin: 0;
+		padding: 0;
+		box-sizing: inherit;
+	}
+}
+
 @keyframes loader {
 	to {
 		transform: rotate(360deg);
 	}
 }
-/*
-
-The following code will only run if your browser supports CSS grid.
-
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling.
-
-*/
 :root {
 	font-size: 10px;
 }

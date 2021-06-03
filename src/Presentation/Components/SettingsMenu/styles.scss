@@ -1,0 +1,42 @@
+.list-container {
+	border-right: 1px solid #dbdbdb;
+	flex-basis: 236px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.list-node {
+	border-left: 2px solid transparent;
+	display: block;
+	font-size: 16px;
+	height: 100%;
+	line-height: 20px;
+	padding: 16px 16px 16px 30px;
+	width: calc(100% - 48px);
+	color: #262626;
+	&:visited {
+		color: #262626;
+	}
+
+	&:hover {
+		color: #262626;
+	}
+
+	&:active {
+		color: #262626;
+	}
+
+}
+
+.selected {
+	border-left-color: #262626;
+	font-weight: 600;
+}
+
+.unselected {
+	&:hover {
+		background-color: #fafafa;
+		border-left-color: #dbdbdb;
+	}
+
+}

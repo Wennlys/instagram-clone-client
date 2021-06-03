@@ -20,9 +20,6 @@ module.exports = merge(common, {
           },
           {
             loader: 'css-loader',
-            // options: {
-            //   modules: true,
-            // },
           },
           {
             loader: 'sass-loader',
@@ -36,11 +33,11 @@ module.exports = merge(common, {
     contentBase: './public',
     writeToDisk: true,
     historyApiFallback: true,
-    port: 8080,
+    port: 3000,
   },
   plugins: [
     new DefinePlugin({
-      'process.env.API_URL': JSON.stringify('http://localhost:3333'),
+      'process.env.API_URL': JSON.stringify('http://localhost:8080'),
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',

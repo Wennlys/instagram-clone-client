@@ -1,5 +1,6 @@
-import { Profile } from '@/Presentation/Pages/Profile';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '@/Presentation/Styles/global.scss';
+import Home from '@/Presentation/Pages/Home';
 
-ReactDOM.render(<Profile />, document.getElementById('App'));
+ReactDOM.render(<Home />, document.getElementById('App'));

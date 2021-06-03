@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.scss';
 
-export const Profile: React.FC = (): JSX.Element => {
+export default function Profile(): JSX.Element {
   const renderFromPostType = (type: string): React.ReactNode => {
     switch (type) {
       case 'gallery':
@@ -88,9 +88,6 @@ export const Profile: React.FC = (): JSX.Element => {
 
   return (
     <>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" />
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
       <header>
         <div className="container">
           <div className="profile">
@@ -159,4 +156,4 @@ export const Profile: React.FC = (): JSX.Element => {
       </main>
     </>
   );
-};
+}
